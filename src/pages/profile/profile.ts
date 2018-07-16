@@ -28,8 +28,14 @@ export class ProfilePage {
         .subscribe(response => {
           this.cliente = response
         },
-        error => {})
+        error => {this.goHomePage()})
+    } else {
+      this.goHomePage();
     }
+  }
+
+  goHomePage(){
+    this.navCtrl.setRoot('HomePage');
   }
 
 }
