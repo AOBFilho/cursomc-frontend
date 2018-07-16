@@ -31,6 +31,18 @@ export class HomePage {
     )
   }
 
+  public ionViewDidEnter(){
+    this.auth.refreshToken().subscribe(
+      response => {
+        this.auth.sucessFulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriaPage');
+      },
+      error => {
+
+      }
+    )
+  }
+
   public ionViewDidLeave(){
     this.menu.swipeEnable(true);
   }

@@ -23,6 +23,14 @@ export class AuthService {
         });
     }
 
+    refreshToken(){
+        return this.http.post(`${API_CONFIG.urlBase}/auth/refresh_token`, {}, {
+            observe: "response",
+            responseType: "text"
+        });
+    }
+
+
     sucessFulLogin(authorizationValue : string) {
         let tok : string = authorizationValue.substring(7);
         let usr : LocalUser = {
