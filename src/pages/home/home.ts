@@ -19,6 +19,10 @@ export class HomePage {
 
   }
 
+  public signup(){
+    this.navCtrl.push('SignupPage');
+  }
+  
   public login(){
     this.auth.authenticate(this.creds).subscribe(
       response => {
