@@ -24,7 +24,10 @@ export class CategoriaPage {
         this.items = response;
       }, 
       error=>{})
-      
+  }
+
+  showProdutos(){
+    this.navCtrl.push('ProdutoPage');
   }
 
 }
