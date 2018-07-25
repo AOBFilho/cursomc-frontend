@@ -14,4 +14,11 @@ export class ClienteService {
         return this.http.get<ClienteDTO>(`${API_CONFIG.urlBase}/clientes/email?value=${email}`);
     }
 
+    public insert(obj : ClienteDTO) {
+        return this.http.post(`${API_CONFIG.urlBase}/clientes`, obj, {
+            observe : "response",
+            responseType: "text"
+        });
+    }
+
 }
