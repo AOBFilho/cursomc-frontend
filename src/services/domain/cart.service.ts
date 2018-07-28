@@ -27,10 +27,46 @@ export class CartService {
         let position = cart.itens.findIndex(x => x.produto.id == produto.id);
         if (position == -1){
             cart.itens.push({quantidade:1,produto:produto});
-        } else {
-            cart.itens[position].quantidade++; 
         }
         this.storage.setCart(cart);
         return cart;
+    }
+
+    removeProduto(produto : ProdutoDTO) : Cart {
+        let cart : Cart = this.getCart();
+        let position = cart.itens.findIndex(x => x.produto.id == produto.id);
+        if (position != -1){
+            cart.itens.splice(position,1);
+        }
+        this.storage.setCart(cart);
+        return cart;
+    }
+
+    increaseProduto(produto : ProdutoDTO) : Cart {
+        let cart : Cart = this.getCart();
+        let position = cart.itens.findIndex(x => x.produto.id == produto.id);
+        if (position != -1){
+            cart.itens[position].quantidade++;
+        }
+        this.storage.setCart(cart);
+        return cart;
+    }
+
+    decreaseProduto(produto : ProdutoDTO) : Cart {
+        let cart : Cart = this.getCart();
+        let position = cart.itens.findIndex(x => x.produto.id == produto.id);
+        if (position != -1){
+            cart.itens[position].quantidade--;
+            if (cart.itens[position].quantidade <= 0){
+                cart = this.removeProduto(produto);
+            }
+        }
+        this.storage.setCart(cart);
+        return cart;
+    }
+
+    total(): number{
+        let cart = this.storage.getCart();
+        return cart.itens.reduce( (a,b) => a += b.produto.preco * b.quantidade , 0);
     }
 }
