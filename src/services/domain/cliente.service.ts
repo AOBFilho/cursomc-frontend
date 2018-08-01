@@ -10,9 +10,13 @@ export class ClienteService {
     
     constructor(public http : HttpClient, public storage : StorageService){}
 
-    public findByEmail(email : string) : Observable<ClienteDTO>{
-        return this.http.get<ClienteDTO>(`${API_CONFIG.urlBase}/clientes/email?value=${email}`);
+    public findByEmail(email : string){
+        return this.http.get(`${API_CONFIG.urlBase}/clientes/email?value=${email}`);
     }
+
+    public findByEmailToClienteDTO(email : string) : Observable<ClienteDTO>{
+        return this.findByEmail(email) as Observable<ClienteDTO>;
+    }    
 
     public insert(obj : ClienteDTO) {
         return this.http.post(`${API_CONFIG.urlBase}/clientes`, obj, {
