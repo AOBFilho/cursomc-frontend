@@ -20,6 +20,10 @@ export class ProdutoPage {
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData(){
     let loading = this.presentLoadingDefault();
     this.produtoService.findByCategoria(this.navParams.get('categoria_id'))
       .subscribe(
@@ -45,5 +49,11 @@ export class ProdutoPage {
     return loading;
   }
   
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.loadData();
+      refresher.complete();
+    }, 1000);
+  }
 
 }
